@@ -1,0 +1,56 @@
+{
+  "name": "webqa-agent",
+  "version": "1.0.0",
+  "description": "An autonomous QA engineer agent for websites: audits performance, accessibility, SEO, security, responsiveness, motion and runs stress tests, then tells the developer (or the AI that built the site) exactly what to fix to reach world-class standards.",
+  "type": "module",
+  "bin": {
+    "webqa": "bin/webqa.js"
+  },
+  "main": "src/runner.js",
+  "exports": {
+    ".": "./src/runner.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "agent",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "webqa": "node bin/webqa.js",
+    "postinstall": "node -e \"console.log('\\n  webqa-agent installed. Run: npx playwright install chromium\\n')\""
+  },
+  "keywords": [
+    "qa",
+    "quality-assurance",
+    "lighthouse",
+    "accessibility",
+    "a11y",
+    "performance",
+    "core-web-vitals",
+    "seo",
+    "stress-test",
+    "load-test",
+    "playwright",
+    "axe-core",
+    "website-audit",
+    "ai-agent",
+    "claude",
+    "cursor"
+  ],
+  "author": "farisradir",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "commander": "^12.1.0",
+    "picocolors": "^1.1.1",
+    "playwright": "^1.48.0"
+  },
+  "optionalDependencies": {
+    "lighthouse": "^12.2.1"
+  }
+}

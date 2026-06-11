@@ -1,0 +1,40 @@
+# Example: drop this into a website repo to gate deploys on world-class quality.
+# It fails the build if the audited site scores below --min-score.
+name: webqa quality gate
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: URL to audit
+        required: true
+        default: https://example.com
+  # pull_request:   # uncomment to run against a preview deployment
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install webqa-agent + browser
+        run: |
+          npm i -g webqa-agent
+          npx playwright install --with-deps chromium
+
+      - name: Run audit (fails below 90)
+        run: |
+          webqa "${{ github.event.inputs.url || 'https://example.com' }}" \
+            --goal landing \
+            --out webqa-report \
+            --no-stress \
+            --min-score 90
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: webqa-report
+          path: webqa-report/
