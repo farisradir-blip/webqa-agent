@@ -1,0 +1,88 @@
+======================================================================
+🔒 تقرير SecureCode Mentor الأمني
+======================================================================
+تاريخ الفحص: 2026-08-01 19:40:52
+إجمالي الثغرات المكتشفة: 7
+
+📊 ملخص الخطورة:
+🔴 CRITICAL: 2
+🟠 HIGH: 3
+🟡 MEDIUM: 2
+
+======================================================================
+📋 التفاصيل:
+======================================================================
+
+[1] نوع الثغرة: HARDCODED_SECRETS
+   الملف: test_app/vulnerable_app.py
+   السطر: 9
+   الخطورة: HIGH
+   الوصف: تم العثور على بيانات حساسة مخزنة بشكل مباشر في الكود
+   💡 التوصية: استخدم متغيرات البيئة أو أدوات إدارة الأسرار مثل HashiCorp Vault
+   🔧 مثال التصحيح:
+      import os
+password = os.getenv('DB_PASSWORD')
+
+[2] نوع الثغرة: HARDCODED_SECRETS
+   الملف: test_app/vulnerable_app.py
+   السطر: 10
+   الخطورة: HIGH
+   الوصف: تم العثور على بيانات حساسة مخزنة بشكل مباشر في الكود
+   💡 التوصية: استخدم متغيرات البيئة أو أدوات إدارة الأسرار مثل HashiCorp Vault
+   🔧 مثال التصحيح:
+      import os
+api_key = os.getenv('API_KEY')
+
+[3] نوع الثغرة: HARDCODED_SECRETS
+   الملف: test_app/vulnerable_app.py
+   السطر: 11
+   الخطورة: HIGH
+   الوصف: تم العثور على بيانات حساسة مخزنة بشكل مباشر في الكود
+   💡 التوصية: استخدم متغيرات البيئة أو أدوات إدارة الأسرار مثل HashiCorp Vault
+   🔧 مثال التصحيح:
+      import os
+secret = os.getenv('APP_SECRET')
+
+[4] نوع الثغرة: COMMAND_INJECTION
+   الملف: test_app/vulnerable_app.py
+   السطر: 33
+   الخطورة: CRITICAL
+   الوصف: احتمالية وجود ثغرة Command Injection
+   💡 التوصية: تجنب استخدام os.system() واستخدم subprocess مع قائمة معاملات
+   🔧 مثال التصحيح:
+      subprocess.run(['ls', '-l'], capture_output=True, text=True)
+
+[5] نوع الثغرة: COMMAND_INJECTION
+   الملف: test_app/vulnerable_app.py
+   السطر: 36
+   الخطورة: CRITICAL
+   الوصف: احتمالية وجود ثغرة Command Injection
+   💡 التوصية: تجنب استخدام os.system() واستخدم subprocess مع قائمة معاملات
+   🔧 مثال التصحيح:
+      subprocess.run(['ls', '-l'], capture_output=True, text=True)
+
+[6] نوع الثغرة: WEAK_CRYPTO
+   الملف: test_app/vulnerable_app.py
+   السطر: 42
+   الخطورة: MEDIUM
+   الوصف: استخدام خوارزمية تشفير قديمة أو ضعيفة
+   💡 التوصية: استخدم خوارزميات حديثة مثل AES-256 و bcrypt للهاش
+   🔧 مثال التصحيح:
+      من bcrypt import hashpw, gensalt
+hashed = hashpw(password.encode(), gensalt())
+
+[7] نوع الثغرة: WEAK_CRYPTO
+   الملف: test_app/vulnerable_app.py
+   السطر: 46
+   الخطورة: MEDIUM
+   الوصف: استخدام خوارزمية تشفير قديمة أو ضعيفة
+   💡 التوصية: استخدم خوارزميات حديثة مثل AES-256 و bcrypt للهاش
+   🔧 مثال التصحيح:
+      من bcrypt import hashpw, gensalt
+hashed = hashpw(password.encode(), gensalt())
+
+======================================================================
+🎓 موارد تعليمية إضافية:
+- OWASP Top 10: https://owasp.org/www-project-top-ten/
+- Secure Coding Practices: https://cheatsheetseries.owasp.org/
+======================================================================
